@@ -99,7 +99,7 @@ header{
 }
 
 .book:hover .delete-button {
-    display:inline
+    display: inline;
 }
 
 .book-title{
