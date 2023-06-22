@@ -1,0 +1,138 @@
+html, body{
+    margin: auto;
+    background-color: #1e293b;
+}
+
+header{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    padding: 20px;
+    text-align: center;
+    background-color: #cbd5e1;
+    border-bottom: 5px solid #020617;
+}
+
+.delete-button{
+    display: none;
+    position: absolute; 
+    top: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #dc2626;
+    font-size: 40px;
+}
+
+#book-form{
+    display: none;
+    position: fixed;
+    z-index: 4;
+    text-align: center;
+    background-color: #cbd5e1;
+    border: 3px solid #020617;
+    border-radius: 10%;
+    box-shadow: 3px 5px 5px 5px;
+    top: 100px;
+    left: 30%;
+    right: 30%;
+    padding: 30px;
+}
+
+.form-input{
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#form-title{
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 5px #020617 solid;
+}
+
+#title{
+    font-size: 20px;
+}
+
+#stat-container{
+    padding: 5px;
+    background-color: #f8fafc;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    
+}
+
+.total-label{
+
+}
+
+.total-value{
+    text-align: right;
+}
+
+#add-book{
+    text-align: right;
+}
+
+#add:hover{
+    background-color: #0f172a;
+    color: #f8fafc;
+    cursor: pointer;
+}
+
+#book-container{
+    display: grid;
+    padding: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 20px 20px;
+}
+
+.book{
+    position: relative;
+    background-color: #f8fafc;
+    padding: 5px;
+    line-height: 15px;
+}
+
+.book:hover .delete-button {
+    display:inline
+}
+
+.book-title{
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #0f172a;
+    margin: 10px;
+}
+
+.completed-container{
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+}
+
+.completed-checkbox{
+    display: inline-block;
+    margin-left: 80%;
+}
+
+.page-container{
+    display: grid; 
+    grid-template-columns: 2fr 1fr;
+    margin: 0px;
+    padding: 0px;
+}
+
+.pages-value{
+    text-align: right;
+}
+
+
+/* 
+980 width
+
+media query ^^ */
