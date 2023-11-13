@@ -1,63 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/5c30b5e5d4.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="external.js" defer></script>
-</head>
-<body>
-    <div id="book-form">
-        <form action="/">
-            <h1 id="form-title">Add a book</h1>
-            <input required id="title" class="form-input" placeholder="Title" type="text">
-            <input required id="author" class="form-input" placeholder="Author" type="text">
-            <input required id="pages" class="form-input" min=0 pattern="[0-9]" placeholder="Page count" type="number">
-            <br>
-            <label for="isRead">Have you read this book?</label>
-            <input id="isRead" type="checkbox">
-            <br>
-            <button type="submit" id="submit" onclick="createBook(
-                document.getElementById(`title`).value,
-                document.getElementById(`author`).value,
-                document.getElementById(`pages`).value,
-                document.getElementById(`isRead`).checked), closeForm()">Submit</button>
-        </form>
-    </div>
-    <header>
-        <div id="title">
-            Clark's Library
-        </div>
-        <div id="add-book">
-            <i id="add" class="fa-solid fa-circle-plus fa-xl" onclick="displayForm()"></i>
-        </div>
-    </header>
-    <main>
-        <div id="book-container">
-            <div id="stat-container">
-                <div class="total-label">
-                    PAGES:
-                </div>
-                <div class="total-value">
-                    1974
-                </div>
-                <div class="total-label">
-                    BOOKS:
-                </div>
-                <div class="total-value">
-                    2
-                </div>
-                <div class="total-label">
-                    COMPLETED:
-                </div>
-                <div class="total-value">
-                    2
-                </div>
-            </div>
-            
-        </div>
-    </main>
-</body>
+    <head>
+        <title>Book Tracker</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://kit.fontawesome.com/5c30b5e5d4.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="external.js" defer></script>
+    </head>
+    <body>
+        <dialog id="bookForm">
+            <form>
+                <p id="formTitle">Add a new book to the library</p>
+                <label for="author">Author:</label><br>
+                <input type="text" name="author" id="author" required><br>
+                <label for="title">Title</label><br>
+                <input type="text" name="title" id="title" required><br>
+                <label for="pages">Page Count:</label><br>
+                <input type="number" name="pages" id="pages" required><br>
+                <p>Have you finished the book?</p>
+                <label for="yes">Yes</label>
+                <input type="radio" name="read" id="yes" value="yes" required>
+                <label for="no">No</label>
+                <input type="radio"  name="read" id="no" value="no" required>
+                <button autofocus id="closeForm">Cancel</button>
+                <button id="createBook">Create</button>
+            </form>
+        </dialog>
+        <header>
+            <h1>Your library</h1>
+            <i id="displayForm" class="fa-solid fa-plus fa-xl" style="color: #ffffff;"></i>
+        </header>
+        <div id="libraryContainer"></div>
+    </body>
 </html>
+
+

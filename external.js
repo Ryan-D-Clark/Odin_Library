@@ -1,92 +1,82 @@
-let myLibrary = [
-    {"title":"A Game Of Thrones","author": "George R.R. Martin","pages": 694,"isRead": true},
-    {"title":"A Feast For Crows","author": "George R.R. Martin","pages": 753,"isRead": true},
-    {"title":"The Winds Of Winter","author": "George R.R. Martin","pages": 1700,"isRead": false}
-];
-let bookContainer = document.getElementById("book-container")
-
-let formContainer = document.getElementById("book-form")
-
-function Book(title, author, pages, isRead){
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.isRead = isRead
-    this.info = function(){
-        return `${this.title}, ${this.author}, ${this.pages}, ${this.isRead}`
-    }
+let displayForm = document.getElementById("displayForm")
+let closeForm = document.getElementById("closeForm")
+let bookForm = document.getElementById("bookForm")
+let libraryContainer = document.getElementById("libraryContainer")
+let author = document.getElementById("author")
+let title = document.getElementById("title")
+let pages = document.getElementById("pages")
+displayForm.addEventListener("click", () => {
+    bookForm.showModal()
+})
+closeForm.addEventListener("click", () =>{
+    event.preventDefault()
+    bookForm.close()
+})
+createBook.addEventListener("click", addBookToMyLibrary)
+let myLibrary = [{bookAuthor:"Andrzej Sapkowski", bookTitle:"Sword of Destiny", bookPageCount:384, bookCompletedStatus:true}, {bookAuthor:"George R.R. Martin", bookTitle:"A Game Of Thrones",bookPageCount: 835, bookCompletedStatus:false}]
+function Book(author, title, pageCount, completedStatus){
+    this.bookAuthor = author;
+    this.bookTitle = title;
+    this.bookPageCount = pageCount;
+    this.bookCompletedStatus = completedStatus
 }
-
-function addBookToLibrary(newBook){
-    myLibrary.push(newBook)
-}
-
-function unpackLibrary(){
-
-    for (pos in myLibrary){
-        let newElement = `
-        <div class="book">
-        <p class="book-title">${myLibrary[pos].title}</p>
-        <div class="author">${myLibrary[pos].author}</div>
-        <div class="page-container">
-            <p class="pages-label">PAGES:</p>
-            <p class="pages-value">${myLibrary[pos].pages}</p>
-        </div>
-        <div class="completed-container">
-            <label class="completed-label">COMPLETED</label>
-            <input class="completed-checkbox" ${myLibrary[pos].isRead ? "checked" : ""} type="checkbox">
-        </div>
-        <i class="delete-button fa-solid fa-trash" onclick="information()"></i>
-    </div>`
-        bookContainer.insertAdjacentHTML("beforeend", newElement)
-    }
-}
-
-function displayForm(){
-
-    if (formContainer.style.display == ""){
-        formContainer.style.display = "block"
+function addBookToMyLibrary(){
+    event.preventDefault()
+    let read = document.querySelector('input[name="read"]:checked').value;
+    if(read == "yes"){
+        read = true
     }
     else{
-        formContainer.style.display = ""
+        read = false
     }
+    let newBook = new Book(author.value, title.value, pages.value, read)
+    myLibrary.push(newBook)
+    bookForm.close()
+    displayLibrary()
 }
-
-function createBook(title, author, pages, isRead){
-    if (title == "" || author == "" || pages == "" || isRead == ""){
-        return 
-    }
-    console.log(`${title}, ${author}, ${pages} ${isRead}`)
-    addBookToLibrary(new Book(title, author, pages, isRead))
-    let newElement = `
-    <div class="book">
-        <p class="book-title">${title}</p>
-        <div class="author">${author}</div>
-        <div class="page-container">
-            <p class="pages-label">PAGES:</p>
-            <p class="pages-value">${pages}</p>
-        </div>
-        <div class="completed-container">
-            <label class="completed-label">COMPLETED</label>
-            <input class="completed-checkbox" ${isRead ? "checked" : ""} type="checkbox">
-        </div>
-    </div>`
-    bookContainer.insertAdjacentHTML("beforeend", newElement)
-}
-
-function closeForm(){
-    formContainer.style.display = ""
-}
-
-function information(){
-    console.log(this)
-}
-
-// let book = new Book("Test", "GGM", 5, true)
-
-// let book2 = new Book("Test2", "RRM", 19, true)
-
-// addBookToLibrary(book)
-// addBookToLibrary(book2)
-
-unpackLibrary()
+function displayLibrary(){
+    libraryContainer.replaceChildren("")
+    for(let i  = 0; i < myLibrary.length; i++){
+        let div = document.createElement("div")
+        div.setAttribute("data-id", i)
+        div.classList.add("book")
+        console.log(i)
+        console.log(myLibrary[i])
+        if(myLibrary[i]["bookCompletedStatus"]){
+            div.classList.add("finished")
+        }
+        div.innerHTML =     `
+        <div class="bookTitle">${myLibrary[i]["bookTitle"]}</div><div class="bookAuthor">${myLibrary[i]["bookAuthor"]}</div>
+        <div class="bookPageCount">${myLibrary[i]["bookPageCount"]+ " pages"}</div>
+        <div class="bookCompletedStatus">${myLibrary[i]["bookCompletedStatus"] ? "Finished":"Not finished"}</div>`
+        libraryContainer.appendChild(div)
+        let remove = document.createElement("i")
+        remove.classList.add("fa-solid")
+        remove.classList.add("fa-trash")
+        remove.classList.add("remove")
+        div.appendChild(remove)
+        libraryContainer.appendChild(div)
+        div.addEventListener("contextmenu", function(ev) {
+            ev.preventDefault()
+            if(myLibrary[i]["bookCompletedStatus"] == true){
+                myLibrary[i]["bookCompletedStatus"] = false
+                div.classList.remove("finished")
+                div.children[3].innerHTML = "Not finished"
+            }
+            else{
+                myLibrary[i]["bookCompletedStatus"] = true
+                div.classList.add("finished")
+                div.children[3].innerHTML = "Finished"
+            }
+            console.log(myLibrary[i]["bookCompletedStatus"])
+        })
+        remove.addEventListener("click", () =>{
+            libraryContainer.children[i].style.display = "none"
+            if(myLibrary.length > 1){
+                myLibrary.splice(i,1)    
+            }
+            else{
+                myLibrary.pop()
+            }
+        })
+}}
