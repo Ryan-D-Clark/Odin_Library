@@ -80,3 +80,5 @@ function displayLibrary(){
             }
         })
 }}
+
+displayLibrary()
