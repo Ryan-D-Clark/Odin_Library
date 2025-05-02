@@ -1,84 +1,70 @@
-let displayForm = document.getElementById("displayForm")
-let closeForm = document.getElementById("closeForm")
-let bookForm = document.getElementById("bookForm")
-let libraryContainer = document.getElementById("libraryContainer")
-let author = document.getElementById("author")
-let title = document.getElementById("title")
-let pages = document.getElementById("pages")
-displayForm.addEventListener("click", () => {
-    bookForm.showModal()
-})
-closeForm.addEventListener("click", () =>{
-    event.preventDefault()
-    bookForm.close()
-})
-createBook.addEventListener("click", addBookToMyLibrary)
-let myLibrary = [{bookAuthor:"Andrzej Sapkowski", bookTitle:"Sword of Destiny", bookPageCount:384, bookCompletedStatus:true}, {bookAuthor:"George R.R. Martin", bookTitle:"A Game Of Thrones",bookPageCount: 835, bookCompletedStatus:false}]
-function Book(author, title, pageCount, completedStatus){
-    this.bookAuthor = author;
-    this.bookTitle = title;
-    this.bookPageCount = pageCount;
-    this.bookCompletedStatus = completedStatus
-}
-function addBookToMyLibrary(){
-    event.preventDefault()
-    let read = document.querySelector('input[name="read"]:checked').value;
-    if(read == "yes"){
-        read = true
-    }
-    else{
-        read = false
-    }
-    let newBook = new Book(author.value, title.value, pages.value, read)
-    myLibrary.push(newBook)
-    bookForm.close()
-    displayLibrary()
-}
-function displayLibrary(){
-    libraryContainer.replaceChildren("")
-    for(let i  = 0; i < myLibrary.length; i++){
-        let div = document.createElement("div")
-        div.setAttribute("data-id", i)
-        div.classList.add("book")
-        console.log(i)
-        console.log(myLibrary[i])
-        if(myLibrary[i]["bookCompletedStatus"]){
-            div.classList.add("finished")
-        }
-        div.innerHTML =     `
-        <div class="bookTitle">${myLibrary[i]["bookTitle"]}</div><div class="bookAuthor">${myLibrary[i]["bookAuthor"]}</div>
-        <div class="bookPageCount">${myLibrary[i]["bookPageCount"]+ " pages"}</div>
-        <div class="bookCompletedStatus">${myLibrary[i]["bookCompletedStatus"] ? "Finished":"Not finished"}</div>`
-        libraryContainer.appendChild(div)
-        let remove = document.createElement("i")
-        remove.classList.add("fa-solid")
-        remove.classList.add("fa-trash")
-        remove.classList.add("remove")
-        div.appendChild(remove)
-        libraryContainer.appendChild(div)
-        div.addEventListener("contextmenu", function(ev) {
-            ev.preventDefault()
-            if(myLibrary[i]["bookCompletedStatus"] == true){
-                myLibrary[i]["bookCompletedStatus"] = false
-                div.classList.remove("finished")
-                div.children[3].innerHTML = "Not finished"
-            }
-            else{
-                myLibrary[i]["bookCompletedStatus"] = true
-                div.classList.add("finished")
-                div.children[3].innerHTML = "Finished"
-            }
-            console.log(myLibrary[i]["bookCompletedStatus"])
-        })
-        remove.addEventListener("click", () =>{
-            libraryContainer.children[i].style.display = "none"
-            if(myLibrary.length > 1){
-                myLibrary.splice(i,1)    
-            }
-            else{
-                myLibrary.pop()
-            }
-        })
-}}
+let bookCardContainer = document.getElementById("book-card-container")
+let addBookButton = document.getElementById("add-book")
+let wipeLibraryButton = document.getElementById("wipe-library")
+let removeBookButton = document.getElementById("remove-book")
 
+let modal = document.getElementById("modal")
+
+
+const myLibrary = []
+
+function addBookToLibrary(bookObject){
+    myLibrary.push(bookObject)
+}
+
+addBookButton.addEventListener("click", () =>{
+    console.log(modal)
+    modal.showModal()
+    console.log(modal.hidden)
+})
+
+
+
+function displayLibrary(){
+    for(let book of myLibrary){
+        const card = document.createElement("div")
+        card.classList.add("card")
+
+        const cardTitle = document.createElement("div")
+        cardTitle.textContent = book.title
+        cardTitle.classList.add("card-title")
+        card.appendChild(cardTitle)
+
+        const cardAuthor = document.createElement("div")
+        cardAuthor.textContent = `By ${book.author}`
+        cardAuthor.classList.add("card-author")
+        card.appendChild(cardAuthor)
+
+        const cardPages = document.createElement("div")
+        cardPages.textContent = `${book.pageCount} pages`
+        cardPages.classList.add("card-pages")
+        card.appendChild(cardPages)
+
+        const cardReadStatus = document.createElement("div")
+        cardReadStatus.textContent = `The book ${book.hasRead == true ? "has been" : "has not been"} finished`
+        cardReadStatus.classList.add("card-read-status")
+        card.appendChild(cardReadStatus)
+
+
+        bookCardContainer.appendChild(card)
+    }
+}
+
+function Book(title, author, pageCount, hasRead){
+    this.id = crypto.randomUUID()
+    this.title = title
+    this.author = author
+    this.pageCount = pageCount
+    this.hasRead = hasRead
+    this.info = function() {
+        return (`${this.title} by ${this.author} ${this.pageCount} ${this.hasRead ? "Finished":"Not finished"}`)
+    }
+}
+let hobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false)
+let theFellowshipOfTheRing = new Book("The Fellowship of the Ring", "J.R.R. Tolkien", 423, true)
+let philosophersStone = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 223, true)
+addBookToLibrary(hobbit)
+addBookToLibrary(theFellowshipOfTheRing)
+addBookToLibrary(philosophersStone)
+ 
 displayLibrary()

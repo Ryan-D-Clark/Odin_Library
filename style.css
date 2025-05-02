@@ -1,82 +1,136 @@
-html, body{
-    margin: auto;
-    color: rgb(255, 255, 255);
-    overflow-x: hidden;
-    background-color: rgb(77,77,77);
+:root{
+    --primary-colour: #181C14;
+    --secondary-colour: #3C3D37;
+    --tertiary-colour: #697565;
+    --primary-font-colour: #ECDFCC;
 }
 
-::backdrop {
-    background-color: rgba(0,0,0,.5);
+body{
+    margin: 0;
+    color: var(--primary-font-colour);
+    background-color: var(--tertiary-colour);
 }
 
-#bookForm{
-    background-color: rgb(45, 51, 55);
-    color: rgb(255, 255, 255);
-    border-radius: 5px;
-}
-
-
-#formTitle{
-    font-size: 1.5rem;
-    border-bottom: .5px solid rgb(255,255,255);
-    text-align: center;
-    margin: 10px 0px;
-}
-
-#libraryContainer{
+#tnb{
     display: flex;
-    width: 100vw;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
     flex-direction: row;
+    width: 100vw;
+    background-color: var(--primary-colour);
+    height: 5rem;
+    padding: 20px;
 }
 
-.book{
-    margin: 20px;
-    padding: 5px;
-    flex: 1 1 0px;
-    min-width: 200px;
-    max-width: 200px;
-    border: 5px solid rgb(255, 255, 255);
-    position: relative;
+#tnb-title{
+    width: 60%;
+    font-size: 3rem;
 }
 
-.bookTitle{
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255,0.3);
-    padding: 20px 0px;
+#tnb-right{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 40px;
+    width: 40%;
+    font-size: 2rem;
 }
 
-.remove{
-    color: white;
+#tnb-right * {
     cursor: pointer;
-    font-size: 25px;
-    position: absolute;
-    left: 85%;
-    top: 5%;
+}
+
+#book-card-container{
+    display: flex;
+    padding: 20px;
+    flex-direction: row;
+    gap: 40px;
+    width: 100vw;
+    border-radius: 10px;
+}
+
+.card{
+    width: 400px;
+    height: 30rem;
+    background-color: var(--secondary-colour);
+    border-radius: 10px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.card-title{
+    background-color: var(--primary-colour);
+    min-height: 5rem;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.card-author{
+
+}
+
+.card-pages{
+
+}
+
+.card-read-status{
     
 }
 
-.finished{
-    background-color: rgba(255, 215, 0.1, 0.8);
+#modal{
+    color: var(--primary-font-colour);
+    height: 80vh;
+    width: 80vw;
+    background-color: var(--tertiary-colour);
+    border: 1px solid rgb(1,1,1);
 }
 
-header{
+label{
+    display: block;
+}
+
+#modal-form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    gap: 20px;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+#modal-form * {
     display: flex;
-    background-color: rgb(61, 102, 214);
+    justify-content: center;
+}
+
+input{
+    width: 60%;
+}
+
+label{
+    text-align: right;
+    padding: 20px;
+}
+
+#create-button{
+    font-size: 2rem;
+    border-radius: 20px;
+    background-color: var(--secondary-colour);
+    color: var(--primary-font-colour);
+    padding: 20px;
     position: relative;
+    width: 10rem;
+    top: 50vh;
+    left: 35vw;
 }
 
-h1{
-    width: 80%;
-    margin: 0px;
-    padding: 10px;
+#radio-input{
+    font-size: 1.5rem;
 }
 
-#displayForm{
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    left: 90%;
+#modal-title{
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+::backdrop{
+    background-color: rgb(1,1,1,0.75);
 }
