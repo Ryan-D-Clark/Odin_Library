@@ -88,8 +88,8 @@ label{
 }
 
 #modal-form{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     padding: 20px;
     gap: 20px;
     justify-content: center;
@@ -99,10 +99,7 @@ label{
 #modal-form * {
     display: flex;
     justify-content: center;
-}
-
-input{
-    width: 60%;
+    font-size: 1.5rem;
 }
 
 label{
@@ -118,7 +115,7 @@ label{
     padding: 20px;
     position: relative;
     width: 10rem;
-    top: 50vh;
+    top: 40vh;
     left: 35vw;
 }
 

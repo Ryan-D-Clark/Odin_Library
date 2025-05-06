@@ -4,6 +4,11 @@ let wipeLibraryButton = document.getElementById("wipe-library")
 let removeBookButton = document.getElementById("remove-book")
 
 let modal = document.getElementById("modal")
+let title = document.getElementById("title")
+let author = document.getElementById("author")
+let pages = document.getElementById("pages")
+let hasRead = document.getElementsByName("has-read")
+let createButton = document.getElementById("create-button")
 
 
 const myLibrary = []
@@ -18,6 +23,9 @@ addBookButton.addEventListener("click", () =>{
     console.log(modal.hidden)
 })
 
+createButton.addEventListener("click", () =>{
+    console.log(title.value,author.value,pages.value, hasRead)
+})
 
 
 function displayLibrary(){
